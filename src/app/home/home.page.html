@@ -9,8 +9,12 @@
 <ion-content>
   <div class="ion-padding">
 
-    <ion-button (click)="getCurrentCoordinates()" expand="block">
+    <ion-button *ngIf="!isCurrent" (click)="getCurrentCoordinates()" expand="block">
       Get Location
+    </ion-button>
+
+    <ion-button (click)="stopCurrentCoordinates()" expand="block">
+      Stop Get Location
     </ion-button>
 
   <ion-list>

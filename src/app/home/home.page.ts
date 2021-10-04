@@ -1,4 +1,4 @@
-import { Component, NgZone } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @Component({
@@ -7,27 +7,39 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
   styleUrls: ['home.page.scss'],
 })
 
-export class HomePage {
-  latitude: any = 0; //latitude
-  longitude: any = 0; //longitude
+export class HomePage implements OnInit, OnDestroy{
+  latitude: any = 0;
+  longitude: any = 0;
+  interval:any;
+  isCurrent:boolean = true;
 
   constructor(
     private geolocation: Geolocation
   ) {}
 
-  options = {
-    timeout: 10000, 
-    enableHighAccuracy: true, 
-    maximumAge: 3600
-  };
+  ngOnInit(): void {
+    this.getCurrentCoordinates();
+  }
 
-  // use geolocation to get user's device coordinates
+  ngOnDestroy(): void {
+    this.isCurrent=false;
+    this.stopCurrentCoordinates()
+  }
+
   getCurrentCoordinates() {
-    this.geolocation.getCurrentPosition().then((resp) => {
-      this.latitude = resp.coords.latitude;
-      this.longitude = resp.coords.longitude;
-     }).catch((error) => {
-       console.log('Error getting location', error);
-     });
+    this.isCurrent=true;
+    this.interval = setInterval(()=>{
+      this.geolocation.getCurrentPosition().then((resp) => {
+        this.latitude = resp.coords.latitude;
+        this.longitude = resp.coords.longitude;
+       }).catch((error) => {
+         console.log('Error getting location', error);
+       });
+    },5000);
+  }
+
+  stopCurrentCoordinates(){
+    this.isCurrent=false;
+    clearInterval(this.interval);
   }
 }
