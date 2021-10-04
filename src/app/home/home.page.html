@@ -13,7 +13,7 @@
       Get Location
     </ion-button>
 
-    <ion-button (click)="stopCurrentCoordinates()" expand="block">
+    <ion-button *ngIf="isCurrent" (click)="stopCurrentCoordinates()" expand="block">
       Stop Get Location
     </ion-button>
 

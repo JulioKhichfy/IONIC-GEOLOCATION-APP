@@ -1,19 +1,15 @@
-### Criação
-- ionic start ionic-geolocation-app blank --type=angular
+## Execute os passos abaixo para executar no Android
+- ionic cordova platform add android
+- ionic cordova build android
+- ionic cordova run android
 
-### Plugins
+
+## Como foi criada :
+
+- ionic start ionic-geolocation-app blank --type=angular --cordova
+
+##### Plugins utilizados
 - ionic cordova plugin add cordova-plugin-geolocation
 - npm install @ionic-native/geolocation
 - npm install @ionic-native/core
 
-### Dependências
-- npm install
-
-### Android
-- ionic cordova platform add android
-
-### Build
-- ionic cordova build android
-
-### Testar no celular
-- ionic cordova run android
